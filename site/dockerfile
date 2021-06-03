@@ -1,0 +1,19 @@
+FROM centos:7
+
+RUN yum -y install epel-release
+RUN yum -y install nginx openssh-server
+ADD nginx.conf /etc/nginx/nginx.conf
+
+WORKDIR /opt/site
+COPY system_information.sh system_information.sh
+RUN chmod 755 system_information.sh
+RUN ["/bin/bash", "/opt/site/system_information.sh"]
+
+RUN groupadd sshgroup && useradd -ms /bin/bash -g sshgroup sshuser
+RUN echo 'sshuser:Qwerty123!' | chpasswd
+
+EXPOSE 22 80 
+
+#CMD service sshd start
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"] && ["service", "sshd", "start"]

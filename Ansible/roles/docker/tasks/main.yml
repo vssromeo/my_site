@@ -1,0 +1,36 @@
+---
+- name: Add repository epel
+  yum_repository:
+    name: epel
+    description: EPEL YUM repo
+    baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+
+#- name: Add repository docker
+#  yum_repository:
+#    name: docker-repo
+#    description: Docker YUM repo
+#    baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+
+- name: Install docker-ce
+  yum:
+    name: docker-ce
+    state: latest
+
+- name: Install docker-ce-cli
+  yum:
+    name: docker-ce-cli
+    state: latest
+    
+- name: Install containerd.io
+  yum:
+    name: containerd.io
+    state: latest
+
+#- name: Install python2-pip
+#  yum:
+#    name: python2-pip
+#    state: installed
+#
+#- name: pythonSDK
+#  pip:
+#    name: docker==4.4.4
