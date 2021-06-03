@@ -2,6 +2,7 @@
 - hosts:
     localhost
 
+  tasks:
     - name: copy site files & dockerfile
       copy:
         src: ./site
